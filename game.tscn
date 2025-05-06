@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cyustope8o0hp"]
+[gd_scene load_steps=7 format=3 uid="uid://cyustope8o0hp"]
 
 [ext_resource type="Script" uid="uid://c3rlcmume1aip" path="res://game.gd" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://rcc3qkn5gf1u" path="res://lan.gd" id="2_e2o6t"]
 [ext_resource type="Script" uid="uid://bq3nrty1j7gxi" path="res://player_spawner.gd" id="3_feb5d"]
 [ext_resource type="PackedScene" uid="uid://caepj0b4vy0re" path="res://player/player.tscn" id="4_fc0e3"]
 [ext_resource type="Script" uid="uid://b6cpu7rhq3wcl" path="res://steam.gd" id="5_7jktm"]
+[ext_resource type="Script" uid="uid://do8xrd2qfdd0s" path="res://performance_label.gd" id="6_ryrav"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_80nbo")
@@ -60,6 +61,11 @@ text = "host steam"
 
 [node name="Steam" type="Node" parent="."]
 script = ExtResource("5_7jktm")
+
+[node name="PerformanceLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("6_ryrav")
 
 [connection signal="pressed" from="Host" to="LAN" method="_on_host_pressed"]
 [connection signal="pressed" from="Join" to="LAN" method="_on_join_pressed"]
