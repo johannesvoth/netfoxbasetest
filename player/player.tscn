@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://caepj0b4vy0re"]
+
+[ext_resource type="Script" uid="uid://dv4d3tu05gvbh" path="res://player/player.gd" id="1_oul6g"]
+[ext_resource type="Texture2D" uid="uid://d11tob8qs47x0" path="res://icon.svg" id="2_rkbax"]
+[ext_resource type="Script" uid="uid://b7fgpam1pxx7r" path="res://player/player_input.gd" id="3_g1dw6"]
+[ext_resource type="Script" uid="uid://dour8fehaaugp" path="res://addons/netfox/tick-interpolator.gd" id="3_qjkh3"]
+[ext_resource type="Script" uid="uid://d350u8evihs1u" path="res://addons/netfox/rollback/rollback-synchronizer.gd" id="3_yw30f"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g1dw6"]
+radius = 81.78
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input")]
+script = ExtResource("1_oul6g")
+input = NodePath("PlayerInput")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_rkbax")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_g1dw6")
+
+[node name="TickInterpolator" type="Node" parent="." node_paths=PackedStringArray("root")]
+script = ExtResource("3_qjkh3")
+root = NodePath("..")
+properties = Array[String]([":global_transform"])
+metadata/_custom_type_script = "uid://dour8fehaaugp"
+
+[node name="RollbackSynchronizer" type="Node" parent="." node_paths=PackedStringArray("root")]
+script = ExtResource("3_yw30f")
+root = NodePath("..")
+enable_prediction = true
+state_properties = Array[String]([":global_transform"])
+input_properties = Array[String](["PlayerInput:movement"])
+metadata/_custom_type_script = "uid://d350u8evihs1u"
+
+[node name="PlayerInput" type="Node" parent="."]
+script = ExtResource("3_g1dw6")

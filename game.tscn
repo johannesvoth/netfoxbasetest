@@ -1,0 +1,67 @@
+[gd_scene load_steps=6 format=3 uid="uid://cyustope8o0hp"]
+
+[ext_resource type="Script" uid="uid://c3rlcmume1aip" path="res://game.gd" id="1_80nbo"]
+[ext_resource type="Script" uid="uid://rcc3qkn5gf1u" path="res://lan.gd" id="2_e2o6t"]
+[ext_resource type="Script" uid="uid://bq3nrty1j7gxi" path="res://player_spawner.gd" id="3_feb5d"]
+[ext_resource type="PackedScene" uid="uid://caepj0b4vy0re" path="res://player/player.tscn" id="4_fc0e3"]
+[ext_resource type="Script" uid="uid://b6cpu7rhq3wcl" path="res://steam.gd" id="5_7jktm"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_80nbo")
+
+[node name="LAN" type="Node" parent="."]
+script = ExtResource("2_e2o6t")
+
+[node name="PlayerSpawner" type="Node" parent="." node_paths=PackedStringArray("spawn_root")]
+script = ExtResource("3_feb5d")
+player_scene = ExtResource("4_fc0e3")
+spawn_root = NodePath("..")
+
+[node name="Host" type="Button" parent="."]
+offset_left = 169.0
+offset_top = 208.0
+offset_right = 391.0
+offset_bottom = 281.0
+text = "host"
+
+[node name="Join" type="Button" parent="."]
+offset_left = 170.0
+offset_top = 61.0
+offset_right = 359.0
+offset_bottom = 134.0
+text = "join"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://biai1m0xr8grh")
+spawn_path = NodePath("..")
+
+[node name="RefreshLobbies" type="Button" parent="."]
+offset_left = 568.0
+offset_top = 55.0
+offset_right = 576.0
+offset_bottom = 63.0
+text = "refresh lobbies"
+
+[node name="LobbyList" type="ScrollContainer" parent="."]
+offset_left = 574.0
+offset_top = 220.0
+offset_right = 1017.0
+offset_bottom = 509.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LobbyList"]
+layout_mode = 2
+
+[node name="HostSteam" type="Button" parent="."]
+offset_left = 829.0
+offset_top = 60.0
+offset_right = 924.0
+offset_bottom = 91.0
+text = "host steam"
+
+[node name="Steam" type="Node" parent="."]
+script = ExtResource("5_7jktm")
+
+[connection signal="pressed" from="Host" to="LAN" method="_on_host_pressed"]
+[connection signal="pressed" from="Join" to="LAN" method="_on_join_pressed"]
+[connection signal="pressed" from="RefreshLobbies" to="." method="_on_refresh_lobbies_pressed"]
+[connection signal="pressed" from="HostSteam" to="." method="_on_host_steam_pressed"]
