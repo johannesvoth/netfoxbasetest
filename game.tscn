@@ -32,10 +32,6 @@ offset_right = 359.0
 offset_bottom = 134.0
 text = "join"
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://biai1m0xr8grh")
-spawn_path = NodePath("..")
-
 [node name="RefreshLobbies" type="Button" parent="."]
 offset_left = 568.0
 offset_top = 55.0

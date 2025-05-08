@@ -1,19 +1,19 @@
 extends Node2D
 
 const BOX = preload("res://box.tscn")
-
-@rpc("any_peer")  # Allow clients to call this
-func request_spawn_box():
-	if not multiplayer.is_server():
-		return  # Only the server should handle actual spawning
-
-	var box = BOX.instantiate()
-	add_child(box)  # Adding on server will replicate to clients
-	box.set_multiplayer_authority(multiplayer.get_remote_sender_id())
-
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("space"):
-		request_spawn_box.rpc()  # Call the server to spawn the box
+#
+#@rpc("any_peer")  # Allow clients to call this
+#func request_spawn_box():
+	#if not multiplayer.is_server():
+		#return  # Only the server should handle actual spawning
+#
+	#var box = BOX.instantiate()
+	#add_child(box)  # Adding on server will replicate to clients
+	#box.set_multiplayer_authority(multiplayer.get_remote_sender_id())
+#
+#func _input(event: InputEvent) -> void:
+	#if event.is_action_pressed("space"):
+		#request_spawn_box.rpc()  # Call the server to spawn the box
 
 
 @onready var lobby_list: VBoxContainer = $LobbyList/VBoxContainer

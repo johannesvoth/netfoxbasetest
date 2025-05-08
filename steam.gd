@@ -9,8 +9,6 @@ func _ready():
 	Steam.lobby_invite.connect(lobby_invite)
 	Steam.lobby_joined.connect(lobby_joined)
 	Steam.join_requested.connect(join_requested)
-	
-	
 
 func lobby_invite(inviter: int, lobby: int, game: int):
 	pass
@@ -20,7 +18,6 @@ func lobby_joined(lobby: int, permissions: int, locked: bool, response: int):
 
 func join_requested(lobby_id: int, steam_id: int):
 	join.emit(lobby_id)
-
 
 func _process(delta):
 	Steam.run_callbacks()

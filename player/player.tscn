@@ -1,17 +1,21 @@
-[gd_scene load_steps=7 format=3 uid="uid://caepj0b4vy0re"]
+[gd_scene load_steps=10 format=3 uid="uid://caepj0b4vy0re"]
 
 [ext_resource type="Script" uid="uid://dv4d3tu05gvbh" path="res://player/player.gd" id="1_oul6g"]
 [ext_resource type="Texture2D" uid="uid://d11tob8qs47x0" path="res://icon.svg" id="2_rkbax"]
 [ext_resource type="Script" uid="uid://b7fgpam1pxx7r" path="res://player/player_input.gd" id="3_g1dw6"]
 [ext_resource type="Script" uid="uid://dour8fehaaugp" path="res://addons/netfox/tick-interpolator.gd" id="3_qjkh3"]
 [ext_resource type="Script" uid="uid://d350u8evihs1u" path="res://addons/netfox/rollback/rollback-synchronizer.gd" id="3_yw30f"]
+[ext_resource type="Script" uid="uid://byrgwv2o7hstx" path="res://addons/netfox.extras/state-machine/rewindable-state-machine.gd" id="6_boad6"]
+[ext_resource type="Script" uid="uid://6118utksfoey" path="res://player/idle.gd" id="7_boad6"]
+[ext_resource type="Script" uid="uid://3k6a3pkffl2y" path="res://player/move.gd" id="8_rgyib"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g1dw6"]
 radius = 81.78
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input", "state_machine")]
 script = ExtResource("1_oul6g")
 input = NodePath("PlayerInput")
+state_machine = NodePath("RewindableStateMachine")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_rkbax")
@@ -28,10 +32,32 @@ metadata/_custom_type_script = "uid://dour8fehaaugp"
 [node name="RollbackSynchronizer" type="Node" parent="." node_paths=PackedStringArray("root")]
 script = ExtResource("3_yw30f")
 root = NodePath("..")
-enable_prediction = true
-state_properties = Array[String]([":global_transform"])
+state_properties = Array[String]([":global_transform", "RewindableStateMachine:state"])
 input_properties = Array[String](["PlayerInput:movement"])
 metadata/_custom_type_script = "uid://d350u8evihs1u"
 
 [node name="PlayerInput" type="Node" parent="."]
 script = ExtResource("3_g1dw6")
+
+[node name="RewindableStateMachine" type="Node" parent="."]
+script = ExtResource("6_boad6")
+metadata/_custom_type_script = "uid://byrgwv2o7hstx"
+
+[node name="Idle" type="Node" parent="RewindableStateMachine" node_paths=PackedStringArray("character", "input")]
+script = ExtResource("7_boad6")
+character = NodePath("../..")
+input = NodePath("../../PlayerInput")
+metadata/_custom_type_script = "uid://usyufdtn83hc"
+
+[node name="Move" type="Node" parent="RewindableStateMachine" node_paths=PackedStringArray("character", "input")]
+script = ExtResource("8_rgyib")
+character = NodePath("../..")
+input = NodePath("../../PlayerInput")
+metadata/_custom_type_script = "uid://usyufdtn83hc"
+
+[node name="CurrentStateLabel" type="Label" parent="."]
+offset_left = -62.0
+offset_top = -113.0
+offset_right = 73.0
+offset_bottom = -90.0
+text = "placeholder state"
