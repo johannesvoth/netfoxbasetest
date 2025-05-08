@@ -13,10 +13,7 @@ func tick(delta, tick, is_fresh):
 	character.move_and_slide()
 	character.velocity /= NetworkTime.physics_factor
 	
-	if input.movement == Vector2.ZERO:
+	if input.jump:
+		state_machine.transition(&"Jump")
+	elif input.movement == Vector2.ZERO:
 		state_machine.transition(&"Idle")
-	
-	#if input.jump:
-		#state_machine.transition(&"Jump")
-	#elif input.input_dir == Vector2.ZERO:
-		#state_machine.transition(&"Idle")

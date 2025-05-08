@@ -7,7 +7,7 @@ func display_enter(_previous, _t):
 
 func tick(delta, tick, is_fresh):
 	
-	if input.movement != Vector2.ZERO:
+	if input.jump:
+		state_machine.transition(&"Jump")
+	elif input.movement != Vector2.ZERO:
 		state_machine.transition(&"Move")
-	#elif input.jump:
-		#state_machine.transition(&"Jump")
