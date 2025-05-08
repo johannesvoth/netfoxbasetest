@@ -2,6 +2,8 @@ extends RewindableState
 @export var character: CharacterBody2D
 @export var input: PlayerInput
 
+@export var animation_name: String
+
 func display_enter(_previous, _t):
 	character.modulate = Color.WHITE
 

@@ -3,6 +3,8 @@ extends RewindableState
 @export var input: PlayerInput
 @export var speed = 300.0
 
+@export var animation_name: String
+
 func display_enter(_previous, _t):
 	character.modulate = Color.RED
 
