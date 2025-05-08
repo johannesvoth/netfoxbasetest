@@ -91,7 +91,7 @@ metadata/_custom_type_script = "uid://dour8fehaaugp"
 [node name="RollbackSynchronizer" type="Node" parent="." node_paths=PackedStringArray("root")]
 script = ExtResource("3_yw30f")
 root = NodePath("..")
-state_properties = Array[String]([":global_transform", "RewindableStateMachine:state"])
+state_properties = Array[String]([":global_transform", "RewindableStateMachine:state", "RewindableStateMachine:Jump:jump_ticks_remaining"])
 input_properties = Array[String](["PlayerInput:movement", "PlayerInput:jump"])
 metadata/_custom_type_script = "uid://d350u8evihs1u"
 
